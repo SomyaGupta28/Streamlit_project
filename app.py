@@ -2,7 +2,7 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-pipeline=joblib.load("models/car_price_prediction.pkl")
+pipeline=joblib.load("car_price_prediction.pkl")
 
 st.title("Used car price prediction")
 Brand=st.text_input("Enter Brand")
