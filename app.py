@@ -5,8 +5,8 @@ import streamlit as st
 pipeline=joblib.load("models/car_price_prediction.pkl")
 
 st.title("Used car price prediction")
-Brand=st.text_input("Enter Brand")
-Vehicle_age=st.number_input(
+brand=st.text_input("Enter Brand")
+vehicle_age=st.number_input(
     "vehicle age",
     min_value=0,
     max_value=30,
@@ -24,18 +24,18 @@ seller_type=st.selectbox(
     "seller type",
     ["Dealer","Individual"]
 )
-transmission=st.selectbox(
-    "Transmission",
+transmission_type=st.selectbox(
+    "Transmission type",
     ["manual","Automatic"]
 )
-Mileage=st.number_input(
+mileage=st.number_input(
     "mileage",
     min_value=0.0,
     value=20.0
 )
 max_power=st.number_input(
     "max Power(BHP)",
-    min_value=0.0,
+    min_value=0,
     max_value=10,
     value=5
 )
@@ -45,9 +45,9 @@ year=st.number_input(
     max_value=2026,
     value=2018
 )
-Present_price=st.number_input(
-    "present  Price (lakhs)",
-    min_values=0.0,
+selling_price=st.number_input(
+    "selling Price (lakhs)",
+    min_value=0.0,
     value=5.0
 )
 owner=st.number_input(
@@ -62,18 +62,27 @@ seats=st.number_input(
     max_value=10,
     value=5,
 )
+engine = st.number_input(
+    "Engine (CC)",
+    min_value=500,
+    max_value=8000,
+    value=1200,
+    step=100
+)
 if st.button("Predict price"):
     input_data=pd.DataFrame({
+        "brand":[brand],
         "year":[year],
-        "Present_price":[Present_price],
         "fuel_type":[fuel_type],
         "seller_type":[seller_type],
-        "transmission":[transmission],
+        "transmission_type":[transmission_type],
         "owner":[owner],
         "max_power":[max_power],
-        "Mileage":[Mileage],
+        "mileage":[mileage],
         "km_driven":[km_driven],
-        "seats":[seats]
+        "seats":[seats],
+        "engine":[engine],
+        "vehicle_age":[vehicle_age]
     })
     prediction =pipeline.predict(input_data)
-    st.success(f"Prediction Selling Price:₹{prediction[0]:,2f}Lakhs")
+    st.success(f"Prediction Selling Price:₹{prediction[0]:.2f}Lakhs")
