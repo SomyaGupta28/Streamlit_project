@@ -1,5 +1,5 @@
 
-# major-project-unlox
+# Major-project-unlox
  Streamlit url : https://sreamlitproject-jrcazsyss7sasvjevtxcnp.streamlit.app/
  # Used Car Price Prediction
 
